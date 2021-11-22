@@ -1,13 +1,12 @@
 package com.example.flexisaf.db.model;
 
-import com.example.flexisaf.db.types.Gender;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Damilare
@@ -15,19 +14,13 @@ import org.springframework.data.annotation.Id;
  **/
 @Getter
 @Setter
-@Document(collection = "flexisaf_student")
-public class Student {
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "flexisaf_department")
+public class Department {
     @Id
     private String id;
-
-    private String firstName;
-    private String lastName;
-    private String otherNames;
-    private Gender gender;
-    private LocalDateTime dateOfBirth;
-    private String departmentName;
-    private String matricNumber;
-    private String createdBy;
+    private String name;
 
     private LocalDateTime createdDateTime;
     private LocalDateTime updatedDateTime;

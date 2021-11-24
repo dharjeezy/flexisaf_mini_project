@@ -19,11 +19,9 @@ import org.springframework.data.repository.support.PageableExecutionUtils;
 public class CustomStudentRepositoryImpl implements CustomStudentRepository {
 
     private MongoTemplate mongoTemplate;
-    private StudentRepository studentRepository;
 
-    public CustomStudentRepositoryImpl(MongoTemplate mongoTemplate, StudentRepository studentRepository) {
+    public CustomStudentRepositoryImpl(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
-        this.studentRepository = studentRepository;
     }
 
     @Override

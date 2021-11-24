@@ -1,5 +1,9 @@
 package com.example.flexisaf.util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,18 +13,25 @@ import java.util.Date;
  **/
 public class DateUtil {
 
-    public static boolean isBirthDate(final Date dob) {
-        Calendar currentCalendar = Calendar.getInstance();
-        Calendar dobCalendar = Calendar.getInstance();
+    public static boolean isBirthDate(LocalDate dateOfBirth) {
+        int birthDate = dateOfBirth.getDayOfMonth();
+        Month birthMonth = dateOfBirth.getMonth();
 
-        currentCalendar.setTime(new Date());
-        dobCalendar.setTime(dob);
+        // get current date
+        LocalDate currentDate = LocalDate.now();
 
-        if( currentCalendar.get(Calendar.MONTH) == dobCalendar.get(Calendar.MONTH)
-                &&currentCalendar.get(Calendar.DAY_OF_MONTH) == dobCalendar.get(Calendar.DAY_OF_MONTH)) {
+        // get current date and month
+        int date = currentDate.getDayOfMonth();
+        Month month = currentDate.getMonth();
+
+        if(date == birthDate && month == birthMonth)
             return true;
-        }
+        else
+            return false;
 
-        return false;
+    }
+
+    public static long age(LocalDate date) {
+        return LocalDate.from(date).until(LocalDate.now(), ChronoUnit.YEARS);
     }
 }

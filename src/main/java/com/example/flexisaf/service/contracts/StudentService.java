@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
  * Damilare
  * 22/11/2021
  **/
-@Service
 public interface StudentService {
 
     Student create(StudentRequest request);

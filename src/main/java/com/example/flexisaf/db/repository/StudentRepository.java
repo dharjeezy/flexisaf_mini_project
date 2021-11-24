@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
  * Damilare
  * 22/11/2021
  **/
-@Repository
 public interface StudentRepository extends MongoRepository<Student, String>, CustomStudentRepository {
     Optional<Student> findByMatricNumberAndDeletedAtIsNull(String matricNumber);
     Optional<Student> findByIdAndDeletedAtIsNull(String id);

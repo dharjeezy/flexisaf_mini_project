@@ -8,7 +8,6 @@ import com.example.flexisaf.service.contracts.StudentService;
 import com.example.flexisaf.util.StringUtil;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -68,7 +67,7 @@ public class StudentController {
     public ResponseEntity<Response> createStudent(@Validated @RequestBody StudentRequest studentRequest) {
         Student student = studentService.create(studentRequest);
         Response response = new Response(true, "Created student successfully", student);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 

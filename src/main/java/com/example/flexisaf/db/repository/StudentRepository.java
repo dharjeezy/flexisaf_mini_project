@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * 22/11/2021
  **/
 public interface StudentRepository extends MongoRepository<Student, String>, CustomStudentRepository {
-    Optional<Student> findByMatricNumberAndDeletedAtIsNull(String matricNumber);
     Optional<Student> findByIdAndDeletedAtIsNull(String id);
-    Page<Student> findAllByIdAndDeletedAtIsNull(PageRequest pageRequest);
+    Page<Student> findAllByDeletedAtIsNull(PageRequest pageRequest);
 }

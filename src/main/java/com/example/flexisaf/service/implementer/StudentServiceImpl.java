@@ -17,13 +17,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -133,7 +131,7 @@ public class StudentServiceImpl implements StudentService {
 
     public Page<Student> fetchAll(int limit, int size) {
         PageRequest pageRequest = PageRequest.of(limit, size);
-        return studentRepository.findAllByIdAndDeletedAtIsNull(pageRequest);
+        return studentRepository.findAllByDeletedAtIsNull(pageRequest);
     }
 
     public Page<Student> fetchStudentByFilters(HashMap<String, Object> filters, LocalDateTime from, LocalDateTime to, PageRequest pageRequest){
@@ -145,7 +143,7 @@ public class StudentServiceImpl implements StudentService {
     public void sendBirthdayMessage() {
         List<Student> students = studentRepository.findAll();
         for(Student student:students){
-            if(!DateUtil.isBirthDate(student.getDateOfBirth()))
+            if(!DateUtil.isBirthDay(student.getDateOfBirth()))
                 continue;
 
             logger.info("Sending birthday message to email for student [{}]", student.getMatricNumber());

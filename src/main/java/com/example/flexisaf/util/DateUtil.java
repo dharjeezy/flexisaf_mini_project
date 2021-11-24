@@ -13,7 +13,7 @@ import java.util.Date;
  **/
 public class DateUtil {
 
-    public static boolean isBirthDate(LocalDate dateOfBirth) {
+    public static boolean isBirthDay(LocalDate dateOfBirth) {
         int birthDate = dateOfBirth.getDayOfMonth();
         Month birthMonth = dateOfBirth.getMonth();
 

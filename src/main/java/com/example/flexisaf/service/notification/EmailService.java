@@ -23,11 +23,15 @@ import java.nio.charset.StandardCharsets;
  **/
 @Service
 public class EmailService {
-    @Autowired
+
     private JavaMailSender javaMailSender;
 
-    @Autowired
     private Configuration freemarkerConfig;
+
+    public EmailService(JavaMailSender javaMailSender, Configuration freemarkerConfig) {
+        this.javaMailSender = javaMailSender;
+        this.freemarkerConfig = freemarkerConfig;
+    }
 
     @Value("${spring.mail.username}")
     private String emailSentFrom;

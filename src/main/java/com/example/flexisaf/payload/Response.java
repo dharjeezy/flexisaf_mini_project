@@ -13,7 +13,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Response {
-    public boolean status;
     public boolean success;
     public String message;
     public Object data;

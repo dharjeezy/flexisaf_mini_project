@@ -2,12 +2,13 @@ package com.example.flexisaf.controller;
 
 /**
  * Damilare
- * 24/11/2021
+ * 25/11/2021
  **/
-
 import com.example.flexisaf.EntityMocker;
 import com.example.flexisaf.FlexisafApplication;
+import com.example.flexisaf.db.model.Department;
 import com.example.flexisaf.db.model.Student;
+import com.example.flexisaf.payload.DepartmentRequest;
 import com.example.flexisaf.payload.StudentRequest;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,58 +28,60 @@ import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(classes = FlexisafApplication.class,
         webEnvironment = WebEnvironment.RANDOM_PORT)
-public class StudentControllerIntegrationTest {
+public class DepartmentControllerIntegrationTest {
+
     @LocalServerPort
     private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
+
     @Test
-    public void test_getStudent() {
-       Student student = EntityMocker.mock(Student.class);
+    public void test_getDepartment() {
+        Department department = EntityMocker.mock(Department.class);
 
         HttpEntity entity = new HttpEntity<>(null, new HttpHeaders());
 
         ResponseEntity responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/student", HttpMethod.GET, entity, String.class);
+                "http://localhost:" + port + "/api/v1/department", HttpMethod.GET, entity, String.class);
 
         assertNotNull(responseEntity);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     @Test
-    public void test_getStudents() {
-        Student student = EntityMocker.mock(Student.class);
+    public void test_getDepartments() {
+        Department department = EntityMocker.mock(Department.class);
 
         HttpEntity entity = new HttpEntity<>(null, new HttpHeaders());
 
         ResponseEntity responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/student/random-id", HttpMethod.GET, entity, String.class);
+                "http://localhost:" + port + "/api/v1/department/random-name", HttpMethod.GET, entity, String.class);
 
         assertNotNull(responseEntity);
     }
 
     @Test
-    public void test_updateStudent() {
-        StudentRequest studentRequest = EntityMocker.mock(StudentRequest.class);
+    public void test_updateDepartment() {
+        DepartmentRequest departmentRequest = EntityMocker.mock(DepartmentRequest.class);
 
-        HttpEntity entity = new HttpEntity<>(studentRequest, new HttpHeaders());
+        HttpEntity entity = new HttpEntity<>(departmentRequest, new HttpHeaders());
 
         ResponseEntity responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/student/random-id", HttpMethod.PUT, entity, String.class);
+                "http://localhost:" + port + "/api/v1/student/random-name", HttpMethod.PUT, entity, String.class);
 
         assertNotNull(responseEntity);
     }
 
     @Test
-    public void test_deleteStudent() {
-        Student student = EntityMocker.mock(Student.class);
+    public void test_deleteDepartment() {
+        Department department = EntityMocker.mock(Department.class);
 
         HttpEntity entity = new HttpEntity<>(null, new HttpHeaders());
 
         ResponseEntity responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/student/random-id", HttpMethod.DELETE, entity, String.class);
+                "http://localhost:" + port + "/api/v1/department/random-id", HttpMethod.DELETE, entity, String.class);
 
         assertNotNull(responseEntity);
     }
@@ -86,23 +89,11 @@ public class StudentControllerIntegrationTest {
 
     @Test
     public void test_createStudent() {
-        StudentRequest studentRequest = EntityMocker.mock(StudentRequest.class);
+        DepartmentRequest departmentRequest = EntityMocker.mock(DepartmentRequest.class);
 
-        ResponseEntity<Student> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/api/v1/student", studentRequest, Student.class);
+
+        ResponseEntity<Department> responseEntity = this.restTemplate
+                .postForEntity("http://localhost:" + port + "/api/v1/department", departmentRequest, Department.class);
         assertEquals(201, responseEntity.getStatusCodeValue());
-    }
-
-    @Test
-    public void test_filters() {
-        Student student = EntityMocker.mock(Student.class);
-
-        HttpEntity entity = new HttpEntity<>(null, new HttpHeaders());
-
-        ResponseEntity responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/student/filters", HttpMethod.GET, entity, String.class);
-
-        assertNotNull(responseEntity);
-        assertEquals(200, responseEntity.getStatusCodeValue());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.flexisaf.service.implementer;
 
+import com.example.flexisaf.db.model.Department;
 import com.example.flexisaf.db.model.Student;
 import com.example.flexisaf.db.repository.StudentRepository;
 import com.example.flexisaf.exception.NotAcceptableException;
@@ -45,21 +46,25 @@ public class StudentServiceImpl implements StudentService {
         this.emailService = emailService;
     }
 
-    public Student create(StudentRequest request) {
-        // check department service if department name exists
+    public Student create(StudentRequest request) throws NotFoundException{
+        // check department service if department name exists, will thow an exception if department name not found
+       departmentService.fetch(request.getDepartmentName());
+
 
         // check if age is valid
         if(DateUtil.age(request.getDateOfBirth() ) < 18 && DateUtil.age(request.getDateOfBirth() ) > 25)
             throw new NotAcceptableException("Student must be 18 years and below 25 years of age");
 
-        Student student = getCustomerFromCustomerRequest(request);
+        Student student = getStudentFromStudentRequest(request);
 
         // generate and set matric number
         student.setMatricNumber(generateMatricNumber());
 
+        student.setCreatedDateTime(LocalDateTime.now());
+
         student = studentRepository.save(student);
 
-        student.setCreatedDateTime(LocalDateTime.now());
+
         return student;
     }
 
@@ -101,8 +106,6 @@ public class StudentServiceImpl implements StudentService {
         if(!StringUtil.isBlank(request.getCreatedBy()))
             student.setCreatedBy(request.getCreatedBy());
 
-        // generate matric number in case
-
         student.setUpdatedDateTime(LocalDateTime.now());
 
         return studentRepository.save(student);
@@ -117,6 +120,8 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentOptional.get();
 
         student.setDeletedAt(LocalDateTime.now());
+
+        studentRepository.save(student);
         return true;
     }
 
@@ -164,13 +169,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-    private Student getCustomerFromCustomerRequest(StudentRequest request) {
-        Student customer = new Student();
+    private Student getStudentFromStudentRequest(StudentRequest request) {
+        Student department = new Student();
         try {
-            BeanUtils.copyProperties(customer, request);
+            BeanUtils.copyProperties(department, request);
         } catch (Exception exception) {
-            logger.error("Error copying student request properties");
+            logger.error("Error copying department request properties");
         }
-        return customer;
+        return department;
     }
 }

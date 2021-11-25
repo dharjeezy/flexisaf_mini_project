@@ -7,7 +7,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:password@127.0.0.1:27017/flexisaf
+      uri: mongodb://root:password@127.0.0.1:27017/kudi
 
   mail:
     host: smtp.gmail.com

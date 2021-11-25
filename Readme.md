@@ -16,6 +16,9 @@ Project is created with:
 * Package Manager: Maven
 * Primary Database: Mongodb
 
+### Documentation
+The API documentation can be found [here](https://documenter.getpostman.com/view/10624688/UVJZoeHG)
+
 ### Architecture and Implementation
 The feature/architecture of this service can be broadly classified into the following:
 
@@ -25,7 +28,7 @@ The feature/architecture of this service can be broadly classified into the foll
    
       The service generates Matric number on the fly
    
-2. View Student
+2. Fetch Student
    
    Get Student and all Students using filters
    
@@ -33,9 +36,22 @@ The feature/architecture of this service can be broadly classified into the foll
    
 4. Delete Student
    
+   Implemented soft delete
+   
 5. A scheduler job that runs 6 AM every morning to send Birthday message.
     
    Birthday message is sent via email
+
+6. Create Department
+
+7. Fetch Department/s
+
+8. Update Department
+
+9. Delete Department
+
+   Implemented soft delete
+
 
 Environment config can be set in application.yml file
 

@@ -1,6 +1,7 @@
 package com.example.flexisaf.service;
 
 import com.example.flexisaf.EntityMocker;
+import com.example.flexisaf.db.model.Department;
 import com.example.flexisaf.db.model.Student;
 import com.example.flexisaf.db.repository.StudentRepository;
 import com.example.flexisaf.payload.StudentRequest;
@@ -52,7 +53,9 @@ public class StudentServiceTest {
     public void create_test() {
         StudentRequest studentRequest = EntityMocker.mock(StudentRequest.class);
         Student student = EntityMocker.mock(Student.class);
+        Department department = EntityMocker.mock(Department.class);
 
+        Mockito.when(departmentService.fetch(any(String.class))).thenReturn(department);
         Mockito.when(studentRepository.save(any(Student.class))).thenReturn(student);
         Mockito.when(studentRepository.count()).thenReturn(5L);
 

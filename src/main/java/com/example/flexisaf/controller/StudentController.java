@@ -2,6 +2,7 @@ package com.example.flexisaf.controller;
 
 import com.example.flexisaf.db.model.Student;
 import com.example.flexisaf.db.types.Gender;
+import com.example.flexisaf.exception.NotFoundException;
 import com.example.flexisaf.payload.Response;
 import com.example.flexisaf.payload.StudentRequest;
 import com.example.flexisaf.service.contracts.StudentService;
@@ -90,7 +91,8 @@ public class StudentController {
             @RequestParam(value = "fullName", required = false) final String fullName,
             @RequestParam(value = "gender", required = false) final Gender gender,
             @RequestParam(value = "departmentName", required = false) final String departmentName,
-            @RequestParam(value = "createdBy", required = false) final String createdBy
+            @RequestParam(value = "createdBy", required = false) final String createdBy,
+            @RequestParam(value = "matricNumber", required = false) final String matricNumber
     ) {
         final HashMap<String, Object> filters = new HashMap<>();
         if (!StringUtil.isBlank(firstName)) {
@@ -119,6 +121,10 @@ public class StudentController {
 
         if (!StringUtil.isBlank(departmentName)) {
             filters.put("departmentName", departmentName);
+        }
+
+        if (!StringUtil.isBlank(matricNumber)) {
+            filters.put("matricNumber", matricNumber);
         }
 
         final PageRequest pageRequest = PageRequest.of(
